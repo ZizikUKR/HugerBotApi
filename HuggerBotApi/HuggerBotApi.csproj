@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HuggerBotApi.Common\HuggerBotApi.Infrastructure.csproj" />
     <ProjectReference Include="..\HuggerBotApi.Domain\HuggerBotApi.Domain.csproj" />
+    <ProjectReference Include="..\HuggerBotApi.Infrastructure\HuggerBotApi.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
