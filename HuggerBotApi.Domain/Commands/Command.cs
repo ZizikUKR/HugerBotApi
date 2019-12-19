@@ -20,7 +20,7 @@ namespace HuggerBotApi.Domain.Commands
 
         public bool Contains(string command)
         {
-            return command.Contains(this._name.ToLower()) && command.Contains(_botName);
+            return command.ToLower().Contains(this._name.ToLower());
         }
     }
 }
