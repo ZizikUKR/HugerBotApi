@@ -15,6 +15,7 @@ namespace HuggerBotApi.Domain.Providers
         private readonly string _botName;
         private readonly string _url;
         private List<Command> _commands;
+        private string _callBackData;
         public IReadOnlyList<Command> Commands { get => _commands.AsReadOnly(); }
         public BotProvider(IConfiguration configuration)
         {
@@ -41,7 +42,12 @@ namespace HuggerBotApi.Domain.Providers
             if (_client == null)
             {
                 _commands = new List<Command>();
-                _commands.Add(new HelloCommand(_botName));
+                _commands.Add(new StartCommand(_botName));
+                _commands.Add(new AllMatchesCommand(_botName));
+                _commands.Add(new GetMenuCommand(_botName));
+                _commands.Add(new WeatherCommand(_botName));
+                _commands.Add(new EnterTeamCommand(_botName));
+                _commands.Add(new ChooseMatchCommand(_botName));
 
                 _client = new TelegramBotClient(_key);
                 try
@@ -58,11 +64,12 @@ namespace HuggerBotApi.Domain.Providers
         public async Task Update(Update update)
         {
             await InitializeClient();
+
             foreach (var command in Commands)
             {
-                if (command.Contains(update.Message.Text))
+                if (command.Contains(update?.Message?.Text))
                 {
-                    command.Execute(update.Message, _client);
+                    command.Execute(update?.Message, _client);
                     break;
                 }
             }
